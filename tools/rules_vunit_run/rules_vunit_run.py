@@ -44,11 +44,12 @@ import json
 import os
 import sys
 import tempfile
+from collections.abc import Mapping, Sequence
 from pathlib import Path
-from typing import List, Mapping, NamedTuple, Sequence
+from typing import NamedTuple
 
-import vunit.builtins as vunit_builtins  # type: ignore[import-untyped]
-from vunit import VUnit
+import vunit.builtins as vunit_builtins
+from vunit import VUnit  # type: ignore[attr-defined]
 
 
 class LibraryEntry(NamedTuple):
@@ -204,7 +205,7 @@ def main() -> None:
 
     if has_vhdl:
         vu.add_vhdl_builtins()
-    builtin_verilog_include_dirs: List[str] = []
+    builtin_verilog_include_dirs: list[str] = []
     if has_verilog:
         # Repoint `vunit.builtins.VERILOG_PATH` at a `+`-free staged
         # copy when needed BEFORE `add_verilog_builtins` reads it.

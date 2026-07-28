@@ -1,5 +1,5 @@
 {
-  "lockFileVersion": 26,
+  "lockFileVersion": 28,
   "registryFileHashes": {
     "https://bcr.bazel.build/bazel_registry.json": "8a28e4aff06ee60aed2a8c281907fb8bcbf3b753c91fb5a5c57da3215d5b3497",
     "https://bcr.bazel.build/modules/abseil-cpp/20210324.2/MODULE.bazel": "7cd0312e064fde87c8d1cd79ba06c876bd23630c83466e9500321be55c96ace2",
@@ -220,8 +220,8 @@
     "https://bcr.bazel.build/modules/rules_swift/2.4.0/MODULE.bazel": "1639617eb1ede28d774d967a738b4a68b0accb40650beadb57c21846beab5efd",
     "https://bcr.bazel.build/modules/rules_swift/3.1.2/MODULE.bazel": "72c8f5cf9d26427cee6c76c8e3853eb46ce6b0412a081b2b6db6e8ad56267400",
     "https://bcr.bazel.build/modules/rules_swift/3.1.2/source.json": "e85761f3098a6faf40b8187695e3de6d97944e98abd0d8ce579cb2daf6319a66",
-    "https://bcr.bazel.build/modules/rules_venv/0.18.0/MODULE.bazel": "5d600ed0ae8abb44fdea5ac70d0cc5f7a457dcbb819314097df24e51cafb5a91",
-    "https://bcr.bazel.build/modules/rules_venv/0.18.0/source.json": "73dae6ba9abb0b641038e55b7afebab3917cba04e52d2f09596d172e92083bab",
+    "https://bcr.bazel.build/modules/rules_venv/0.23.0/MODULE.bazel": "ac20d0f20ae234434d0ea2bb0302b80bb29e6f8d959fe28362b7d1f708fc2ec0",
+    "https://bcr.bazel.build/modules/rules_venv/0.23.0/source.json": "549dff6c5503f41c8da5e93128327b280f90cbf35ab53605c27c3b3111c81bd0",
     "https://bcr.bazel.build/modules/rules_venv/0.7.0/MODULE.bazel": "20a844b0bbac189e11af899d09de249a7f766b361aa49f4870134136e6c4bd0d",
     "https://bcr.bazel.build/modules/rules_verilog/1.4.0/MODULE.bazel": "c6f7953824237a448a8d57f167fec195a5df35e82f112a7daf0a28eba69731f4",
     "https://bcr.bazel.build/modules/rules_verilog/1.4.1/MODULE.bazel": "4a97926a2ec0807b7ecba376f7a6422e88ec5391374b4461f866376aeb70460c",
@@ -254,7 +254,7 @@
   "moduleExtensions": {
     "@@rules_kotlin+//src/main/starlark/core/repositories:bzlmod_setup.bzl%rules_kotlin_extensions": {
       "general": {
-        "bzlTransitiveDigest": "Ga4z8lQy1YQ5rAMy+dOl0dqcCEBnYNCXku8x3YQmDZI=",
+        "bzlTransitiveDigest": "+Kp6j204mBZ3mxlIDDR0gBoP45BZ4jYRhRAcB8sU0qc=",
         "usagesDigest": "QI2z8ZUR+mqtbwsf2fLqYdJAkPOHdOV+tF2yVAUgRzw=",
         "recordedInputs": [
           "REPO_MAPPING:rules_kotlin+,bazel_tools bazel_tools"
@@ -369,5 +369,6 @@
       }
     }
   },
-  "facts": {}
+  "facts": {},
+  "factsVersions": {}
 }

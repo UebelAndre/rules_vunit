@@ -1,0 +1,16 @@
+Add PEP 561 `py.typed` marker so mypy consumes VUnit's type hints.
+
+VUnit ships partial type annotations (e.g. `Optional[str]` on public
+API methods like `Library.add_source_file`) but no `py.typed` marker,
+so mypy treats every `from vunit import ...` as `import-untyped` and
+refuses to check consumer code that touches the VUnit API. Adding
+this empty marker file opts into PEP 561 discovery — mypy honours
+the shipped hints and treats absent hints as implicit `Any`, which
+matches how downstream projects already interact with VUnit.
+
+Drop this patch when VUnit upstream ships `py.typed` themselves.
+
+--- /dev/null
++++ b/vunit/py.typed
+@@ -0,0 +1 @@
++

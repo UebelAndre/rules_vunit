@@ -8,13 +8,13 @@ module(
 bazel_dep(name = "bazel_skylib", version = "1.8.2")
 bazel_dep(name = "rules_verilog", version = "1.4.1")
 bazel_dep(name = "rules_vhdl", version = "0.4.1")
-bazel_dep(name = "ghdl", version = "6.0.0.bcr.2")
-bazel_dep(name = "nvc", version = "1.21.0")
 bazel_dep(name = "platforms", version = "1.0.0")
 bazel_dep(name = "rules_python", version = "1.7.0")
-bazel_dep(name = "rules_venv", version = "0.18.0")
+bazel_dep(name = "rules_venv", version = "0.23.0")
 bazel_dep(name = "rules_cc", version = "0.2.4")
 
+bazel_dep(name = "ghdl", version = "6.0.0.bcr.2", dev_dependency = True)
+bazel_dep(name = "nvc", version = "1.21.0", dev_dependency = True)
 bazel_dep(name = "rules_req_compile", version = "1.1.0", dev_dependency = True)
 bazel_dep(name = "rules_rust_mdbook", version = "0.69.0", dev_dependency = True)
 bazel_dep(name = "rules_shell", version = "0.7.1", dev_dependency = True)
@@ -40,25 +40,27 @@ http_archive(
     name = "vunit_hdl",
     build_file = "//vunit/private:BUILD.vunit_hdl.bazel",
     dev_dependency = True,
-    # Two carry patches against VUnit 4.7.1; both have a per-file
-    # header documenting the failure mode they close and a
+    # Three carry patches against VUnit 4.7.1; each has a per-file
+    # header documenting the failure mode it closes and a
     # "drop this patch when upstream takes a fix" note.
     #   * `llvm_jit_backend` — teach VUnit's GHDL backend detector
     #     about the `llvm-jit` backend (BCR `ghdl@6.0.0.bcr.1`'s
     #     non-x86_64 build emits a `--version` line VUnit's
     #     `determine_backend` regex set doesn't recognize).
-    #   * `verilog_path` — drop `.resolve()` from `VERILOG_PATH` so
-    #     VUnit stays inside the action's runfiles sandbox; mirror
-    #     `vunit/verilog/` to a `+`-free tmp dir when the path
-    #     contains `+` (Bazel's bzlmod external-repo layout is
-    #     `+http_archive+vunit_hdl/...`; Aldec vlog treats `+` in
-    #     `+incdir+` as a list separator and reports
-    #     `VCP1000 Cannot open file vunit_defines.svh` without the
-    #     staging).
+    #   * `verilog_path` — drop `.resolve()` from `VERILOG_PATH` /
+    #     `VHDL_PATH` so VUnit stays inside the action's runfiles
+    #     sandbox; combined with the driver's `+`-stripping helper,
+    #     this closes the Aldec-vlog `VCP1000 Cannot open file
+    #     vunit_defines.svh` failure under bzlmod's `+http_archive+`
+    #     external-repo layout.
+    #   * `py_typed` — add PEP 561 marker so mypy consumes VUnit's
+    #     shipped type hints instead of flagging every consumer
+    #     `from vunit import ...` as `import-untyped`.
     patch_args = ["-p1"],
     patches = [
         "//vunit/private:vunit_hdl_llvm_jit_backend.patch",
         "//vunit/private:vunit_hdl_verilog_path.patch",
+        "//vunit/private:vunit_hdl_py_typed.patch",
     ],
     sha256 = "3a6f0e19eaa1e79899676aa4cdce95ec8f649002362c4458c3e0412d0f7d0912",
     strip_prefix = "vunit_hdl-4.7.1",

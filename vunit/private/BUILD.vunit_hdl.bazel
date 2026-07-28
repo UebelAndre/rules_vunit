@@ -1,23 +1,41 @@
 # Build file injected into the `vunit_hdl` http_archive by `MODULE.bazel`.
-#
-# Mirrors what upstream's `setup.py` packages:
-#   - all *.tcl anywhere under vunit/
-#   - everything under vunit/vhdl/ (vunit_context, run_pkg, check_pkg, OSVVM, ...)
-#   - .sv/.svh under vunit/verilog/ (setup.py also lists .v, but upstream
-#     ships no .v files; omitting that pattern to satisfy
-#     --incompatible_disallow_empty_glob)
 
 load("@rules_venv//python:py_library.bzl", "py_library")
 
 py_library(
     name = "vunit_hdl",
     srcs = glob(["vunit/**/*.py"]),
-    data = glob([
-        "vunit/**/*.tcl",
-        "vunit/vhdl/**",
-        "vunit/verilog/**/*.sv",
-        "vunit/verilog/**/*.svh",
-    ]),
+    data = [
+    ] + glob(
+        include = [
+            "vunit/**/py.typed",
+            "vunit/**/*.cmd",
+            "vunit/**/*.filter",
+            "vunit/**/*.gtkw",
+            "vunit/**/*.json",
+            "vunit/**/*.ldf",
+            "vunit/**/*.log",
+            "vunit/**/*.lpf",
+            "vunit/**/*.md",
+            "vunit/**/*.pro",
+            "vunit/**/*.ps1",
+            "vunit/**/*.sh",
+            "vunit/**/*.sty",
+            "vunit/**/*.sv",
+            "vunit/**/*.svh",
+            "vunit/**/*.tcl",
+            "vunit/**/*.vhd",
+            "vunit/**/*.vhdl",
+            "vunit/**/*.xise",
+            "vunit/**/*.xpr",
+            "vunit/**/*.yml",
+        ],
+        allow_empty = True,
+    ),
     imports = ["."],
     visibility = ["//visibility:public"],
+    deps = [
+        # Consumers should pair this target with `colorama` but it is not
+        # added here to avoid introducing conflicts in existing dep trees
+    ],
 )
