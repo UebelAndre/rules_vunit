@@ -13,6 +13,7 @@ py_library(
     name = "vunit_hdl",
     srcs = glob(["vunit/**/*.py"]),
     data = glob([
+        "vunit/**/py.typed",
         "vunit/**/*.tcl",
         "vunit/vhdl/**",
         "vunit/verilog/**/*.sv",
