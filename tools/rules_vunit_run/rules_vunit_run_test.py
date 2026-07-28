@@ -12,9 +12,9 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
-import vunit.builtins as vunit_builtins  # type: ignore[import-untyped]
+import vunit.builtins as vunit_builtins
 from rules_vunit_run import (
     ensure_vunit_verilog_path_is_plus_free,
     load_manifest,
@@ -29,7 +29,7 @@ class LoadManifestTests(unittest.TestCase):
         # pylint: disable-next=consider-using-with
         self.tmpdir = Path(self.enterContext(tempfile.TemporaryDirectory()))
 
-    def _write(self, payload: Dict[str, Any]) -> Path:
+    def _write(self, payload: dict[str, Any]) -> Path:
         path = self.tmpdir / "libraries.json"
         path.write_text(json.dumps(payload), encoding="utf-8")
         return path
